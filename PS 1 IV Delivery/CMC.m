@@ -1,0 +1,31 @@
+CsurfTrial = [0;5;10;25;50;75;100];
+Sol25 = [0.31;0.34;0.33;2.4;7.4;12.8;18.4];
+Sol37 = [0.52;0.53;0.55;4.6;10.3;15.6];
+
+figure;
+subplot(2,1,1);
+plot(CsurfTrial,Sol25,'xk','LineStyle','none');
+xlabel('Surfactant Concentration (mg/mL)');
+ylabel(['Solubility of Pacific1 at 25', char(176), 'C (mg/mL)']);
+p25 = polyfit(CsurfTrial(4:end),Sol25(4:end),1);
+Csurf = [0:0.1:100];
+Sol25model = p25(1)*Csurf+p25(2);
+hold on;
+plot(Csurf,Sol25model,'k');
+Sw25 = mean(Sol25(1:3));
+CMC25 = (Sw25-p25(2))/p25(1);
+plot(CMC25,Sw25,'ob');
+hold off;
+
+subplot(2,1,2);
+plot(CsurfTrial(1:end-1),Sol37,'xk','LineStyle','none');
+xlabel('Surfactant Concentration (mg/mL)');
+ylabel(['Solubility of Pacific1 at 37', char(176), 'C (mg/mL)']);
+p37 = polyfit(CsurfTrial(3:end-1),Sol37(3:end),1);
+Sol37model = p37(1)*Csurf+p37(2);
+hold on;
+plot(Csurf,Sol37model,'k');
+Sw37 = mean(Sol37(1:2));
+CMC37 = (Sw37-p37(2))/p37(1);
+plot(CMC37,Sw37,'ob');
+hold off;
